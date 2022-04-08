@@ -1,12 +1,10 @@
 package main
 
 import (
-	"portfolioManagement/infrastructure"
-	utils "portfolioManagement/utils/logger"
+	"portfolioManagement/server"
 )
 
-var Logger utils.Logger
-
 func main() {
-	Logger = infrastructure.NewLocalLogger()
+	server := server.NewServer()
+	server.Serve()
 }

@@ -1,15 +1,13 @@
 package infrastructure
 
 import (
-	"portfolioManagement/services"
-
-	"gorm.io/gorm"
+	"portfolioManagement/application"
 )
 
 type postgresPhotoRepository struct {
 }
 
-func NewPostgresPhotoRepository(dbCon *gorm.DB) services.PhotoRepository {
+func NewPostgresPhotoRepository() application.PhotoRepository {
 	return &postgresPhotoRepository{}
 }
 

@@ -1,4 +1,4 @@
-package services
+package application
 
 type PhotoStorage interface {
 	UploadPhoto()

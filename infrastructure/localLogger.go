@@ -2,7 +2,7 @@ package infrastructure
 
 import (
 	"log"
-	utils "portfolioManagement/utils/logger"
+	"portfolioManagement/utils"
 )
 
 type localLogger struct{}
@@ -16,6 +16,10 @@ func (l *localLogger) Info(v ...interface{}) {
 }
 
 func (l *localLogger) Error(v ...interface{}) {
+	log.Println(v)
+}
+
+func (l *localLogger) Fatal(v ...interface{}) {
 	log.Fatalln(v)
 }
 

@@ -1,8 +1,8 @@
-package app
+package server
 
 import (
 	"portfolioManagement/infrastructure"
-	utils "portfolioManagement/utils/logger"
+	"portfolioManagement/utils"
 )
 
 func ProvideLogger() utils.Logger {

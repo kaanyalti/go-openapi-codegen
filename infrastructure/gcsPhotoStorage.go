@@ -1,11 +1,11 @@
 package infrastructure
 
-import "portfolioManagement/services"
+import "portfolioManagement/application"
 
 type gcsPhotoStorage struct {
 }
 
-func NewGcsPhotoStorage() services.PhotoStorage {
+func NewGcsPhotoStorage() application.PhotoStorage {
 	return &gcsPhotoStorage{}
 }
 

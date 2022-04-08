@@ -1,7 +1,7 @@
 package infrastructure
 
 import (
-	utils "portfolioManagement/utils/logger"
+	"portfolioManagement/utils"
 	"time"
 
 	_ "github.com/golang-migrate/migrate/v4/source/file"
@@ -25,7 +25,7 @@ func SetupDbConnection(logger utils.Logger) (*gorm.DB, error) {
 
 		retries--
 		if retries <= 0 {
-			panic(err)
+			logger.Fatal(err)
 		}
 
 		if err != nil {

@@ -1,15 +1,75 @@
 package utils
 
-import "os"
+import (
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
 
 type Config struct {
-	Env string
+	Env            string
+	DatabaseConfig *DatabaseConfig
 }
 
-func NewConfig(logger Logger) *Config {
+type DatabaseConfig struct {
+	Database string
+	User     string
+	Password string
+	Host     string
+	Port     int
+}
+
+func NewConfig() (*Config, error) {
+	var missingEnvs []string
+	var err error
 	var config *Config
+	var dbConfig *DatabaseConfig
 
 	env, ok := os.LookupEnv("ENV")
+	if !ok {
+		missingEnvs = append(missingEnvs, "ENV")
+	}
 
-	return config
+	dbName, ok := os.LookupEnv("DB_NAME")
+	if !ok {
+		missingEnvs = append(missingEnvs, "DB_NAME")
+	}
+	dbUser, ok := os.LookupEnv("DB_USER")
+	if !ok {
+		missingEnvs = append(missingEnvs, "DB_USER")
+	}
+	dbPassword, ok := os.LookupEnv("DB_PASSWORD")
+	if !ok {
+		missingEnvs = append(missingEnvs, "DB_PASSWORD")
+	}
+	dbHost, ok := os.LookupEnv("DB_HOST")
+	if !ok {
+		missingEnvs = append(missingEnvs, "DB_HOST")
+	}
+	dbPort, ok := os.LookupEnv("DB_PORT")
+	if !ok {
+		missingEnvs = append(missingEnvs, "DB_PORT")
+	}
+
+	if len(missingEnvs) != 0 {
+		var errMessage strings.Builder
+		for _, envVar := range missingEnvs {
+			errMessage.WriteString(fmt.Sprintf("%s\n", envVar))
+		}
+		return nil, fmt.Errorf(errMessage.String())
+	}
+
+	config.Env = env
+
+	dbConfig.Database = dbName
+	dbConfig.User = dbUser
+	dbConfig.Password = dbPassword
+	dbConfig.Host = dbHost
+	dbConfig.Port, err = strconv.Atoi(dbPort)
+	if err != nil {
+		return nil, err
+	}
+
+	return config, nil
 }

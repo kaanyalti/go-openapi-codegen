@@ -10,14 +10,16 @@ import (
 )
 
 type Server struct {
+	config *utils.Config
 	router routers.Router
 	logger utils.Logger
 }
 
-func NewServer() *Server {
+func NewServer(config *utils.Config, router routers.Router, logger utils.Logger) *Server {
 	return &Server{
-		router: routers.NewRouter(),
-		logger: ProvideLogger(),
+		config: config,
+		router: router,
+		logger: logger,
 	}
 }
 

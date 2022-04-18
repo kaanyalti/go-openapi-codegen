@@ -23,8 +23,10 @@ type DatabaseConfig struct {
 func NewConfig() (*Config, error) {
 	var missingEnvs []string
 	var err error
-	var config *Config
-	var dbConfig *DatabaseConfig
+	dbConfig := &DatabaseConfig{}
+	config := &Config{
+		DatabaseConfig: dbConfig,
+	}
 
 	env, ok := os.LookupEnv("ENV")
 	if !ok {

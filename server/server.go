@@ -24,16 +24,16 @@ func NewServer(config *utils.Config, router routers.Router, logger utils.Logger)
 }
 
 func (s *Server) Serve() {
-	// dbConn, err := infrastructure.SetupDbConnection(s.logger)
-	// if err != nil {
-	// 	s.logger.Fatal(err)
-	// }
+	dbConn, err := infrastructure.SetupDbConnection(s.config, s.logger)
+	if err != nil {
+		s.logger.Fatal(err)
+	}
 
-	// db, err := dbConn.DB()
-	// if err != nil {
-	// 	s.logger.Fatal(err)
-	// }
-	// defer db.Close()
+	db, err := dbConn.DB()
+	if err != nil {
+		s.logger.Fatal(err)
+	}
+	defer db.Close()
 
 	photoStorage := infrastructure.NewGcsPhotoStorage()
 	photoRepository := infrastructure.NewPostgresPhotoRepository()

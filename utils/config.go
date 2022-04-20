@@ -59,7 +59,7 @@ func NewConfig() (*Config, error) {
 		for _, envVar := range missingEnvs {
 			errMessage.WriteString(fmt.Sprintf("%s\n", envVar))
 		}
-		return nil, fmt.Errorf(errMessage.String())
+		return nil, fmt.Errorf(fmt.Sprintf("The following environment variables are not provided:\n%s", errMessage.String()))
 	}
 
 	config.Env = env

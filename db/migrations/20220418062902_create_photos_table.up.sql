@@ -1,5 +1,5 @@
 CREATE TABLE photos (
-    id uuid DEFAULT NOT NULL,
+    id uuid NOT NULL,
     name VARCHAR NOT NULL,
     size INT NOT NULL,
     PRIMARY KEY (id)

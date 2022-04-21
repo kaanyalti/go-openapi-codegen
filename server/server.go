@@ -36,7 +36,7 @@ func (s *Server) Serve() {
 	defer db.Close()
 
 	photoStorage := infrastructure.NewGcsPhotoStorage()
-	photoRepository := infrastructure.NewPostgresPhotoRepository()
+	photoRepository := infrastructure.NewPostgresPhotoRepository(dbConn)
 	photoService := application.NewPhotoService(photoRepository, photoStorage)
 	photoControllers := controllers.NewPhotoControllers(photoService)
 	photoRoutes := routers.NewPhotoRoutes(*photoControllers)

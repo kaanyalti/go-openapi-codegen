@@ -1,5 +1,9 @@
 package application
 
+import (
+	domainModels "portfolioManagement/domain/models"
+)
+
 type PhotoRepository interface {
-	CreatePhoto()
+	CreatePhoto(domainModels.Photo) error
 }

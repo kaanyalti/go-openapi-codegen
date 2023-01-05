@@ -13,7 +13,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func SetupDbConnection(config *utils.Config, logger utils.Logger) (*gorm.DB, error) {
+func SetupDbConnection(config utils.Config, logger utils.Logger) (*gorm.DB, error) {
 	var db *gorm.DB
 	var err error
 

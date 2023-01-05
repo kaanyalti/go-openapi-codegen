@@ -12,7 +12,7 @@ type Config struct {
 }
 
 type DatabaseConfig struct {
-	Database string `envconfig:"database"`
+	Database string `envconfig:"database_name"`
 	User     string `envconfig:"database_user"`
 	Password string `envconfig:"database_password"`
 	Host     string `envconfig:"database_host"`

@@ -2,7 +2,7 @@ package infrastructure
 
 import (
 	"fmt"
-	"portfolioManagement/utils"
+	"openapiCodegen/utils"
 	"strconv"
 	"time"
 

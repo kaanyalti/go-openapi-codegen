@@ -1,7 +1,7 @@
 package infrastructure
 
 import (
-	"portfolioManagement/utils"
+	"openapiCodegen/utils"
 )
 
 func ProvideLogger() utils.Logger {

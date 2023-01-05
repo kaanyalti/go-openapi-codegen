@@ -2,11 +2,11 @@ package server
 
 import (
 	"net/http"
-	"portfolioManagement/application"
-	"portfolioManagement/infrastructure"
-	"portfolioManagement/ui/controllers"
-	"portfolioManagement/ui/routers"
-	"portfolioManagement/utils"
+	"openapiCodegen/application"
+	"openapiCodegen/infrastructure"
+	"openapiCodegen/ui/controllers"
+	"openapiCodegen/ui/routers"
+	"openapiCodegen/utils"
 )
 
 type Server struct {

@@ -1,9 +1,9 @@
 package infrastructure
 
 import (
-	"portfolioManagement/application"
-	domainModels "portfolioManagement/domain/models"
-	dbModels "portfolioManagement/infrastructure/models"
+	"openapiCodegen/application"
+	domainModels "openapiCodegen/domain/models"
+	dbModels "openapiCodegen/infrastructure/models"
 
 	"gorm.io/gorm"
 )

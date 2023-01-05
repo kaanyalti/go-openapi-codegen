@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"portfolioManagement/infrastructure"
-	"portfolioManagement/utils"
+	"openapiCodegen/infrastructure"
+	"openapiCodegen/utils"
 	"strconv"
 
 	"github.com/joho/godotenv"

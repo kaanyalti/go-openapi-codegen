@@ -2,7 +2,7 @@ package infrastructure
 
 import (
 	"log"
-	"portfolioManagement/utils"
+	"openapiCodegen/utils"
 )
 
 type localLogger struct{}

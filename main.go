@@ -1,10 +1,10 @@
 package main
 
 import (
-	"portfolioManagement/infrastructure"
-	"portfolioManagement/server"
-	"portfolioManagement/ui/routers"
-	"portfolioManagement/utils"
+	"openapiCodegen/infrastructure"
+	"openapiCodegen/server"
+	"openapiCodegen/ui/routers"
+	"openapiCodegen/utils"
 
 	"github.com/joho/godotenv"
 )

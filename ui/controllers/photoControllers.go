@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"portfolioManagement/application"
+	"openapiCodegen/application"
 
 	"github.com/labstack/echo/v4"
 )

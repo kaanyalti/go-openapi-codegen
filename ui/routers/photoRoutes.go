@@ -1,6 +1,6 @@
 package routers
 
-import "portfolioManagement/ui/controllers"
+import "openapiCodegen/ui/controllers"
 
 type PhotoRoutes struct {
 	controllers controllers.PhotoControllers

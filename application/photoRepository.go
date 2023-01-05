@@ -1,7 +1,7 @@
 package application
 
 import (
-	domainModels "portfolioManagement/domain/models"
+	domainModels "openapiCodegen/domain/models"
 )
 
 type PhotoRepository interface {

@@ -1,6 +1,6 @@
 package infrastructure
 
-import "portfolioManagement/application"
+import "openapiCodegen/application"
 
 type gcsPhotoStorage struct {
 }

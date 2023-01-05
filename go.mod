@@ -1,4 +1,4 @@
-module portfolioManagement
+module openapiCodegen
 
 go 1.19
 

@@ -15,8 +15,8 @@ type Server struct {
 	logger utils.Logger
 }
 
-func NewServer(config utils.Config, router routers.Router, logger utils.Logger) *Server {
-	return &Server{
+func NewServer(config utils.Config, router routers.Router, logger utils.Logger) Server {
+	return Server{
 		config: config,
 		router: router,
 		logger: logger,

@@ -25,9 +25,25 @@ func GetExtension(i interface{}) string {
 
 var funcMap template.FuncMap
 
+// var fileStructure map[string]interface{}
+var root Dir
+
+type Dir struct {
+	Name      string
+	ChildDirs map[string]Dir
+}
+
 func init() {
 	funcMap = make(template.FuncMap, 0)
 	funcMap["GetExtension"] = GetExtension
+
+	root := map[string]interface{}{
+		"server": map[string]interface{}{
+			"ui": map[string]interface{}{
+				"controller"
+			}
+		}
+	}
 }
 
 func main() {
@@ -77,11 +93,11 @@ func main() {
 				groupedOperations[tag] = append(groupedOperations[tag], operation)
 			}
 		}
-		fmt.Println("========================================")
-		fmt.Println(len(groupedOperations["photo"]))
-		fmt.Println(groupedOperations["photo"][0])
-		fmt.Println(groupedOperations["photo"][1])
-		fmt.Println("========================================\n")
+		// fmt.Println("========================================")
+		// fmt.Println(len(groupedOperations["photo"]))
+		// fmt.Println(groupedOperations["photo"][0])
+		// fmt.Println(groupedOperations["photo"][1])
+		// fmt.Println("========================================\n")
 	}
 
 	caser := cases.Title(language.Und)

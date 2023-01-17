@@ -47,6 +47,39 @@ paths:
                 type: array
                 items:
                  $ref: '#/components/schemas/Photo'
+  /companies:
+    x-arg-1: "test"
+    x-arg-2: "test"
+    get:
+      tags: 
+        - company
+      summary: Retruns all photos
+      description: Returns all photos
+      opeationId: GetCompanies
+      responses:
+        '200':
+          description: photo response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Photo'
+    post:
+      tags: 
+        - company
+      summary: Creates a photo
+      description: Returns a photo
+      opeationId: CreateCompany
+      responses:
+        '200':
+          description: photo response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Photo'
 components:
   schemas:
     Photo:

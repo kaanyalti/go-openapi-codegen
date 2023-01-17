@@ -18,9 +18,26 @@ paths:
     x-arg-1: "test"
     x-arg-2: "test"
     get:
+      tags: 
+        - photo
       summary: Retruns all photos
       description: Returns all photos
       opeationId: GetPhotos
+      responses:
+        '200':
+          description: photo response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Photo'
+    post:
+      tags: 
+        - photo
+      summary: Creates a photo
+      description: Returns a photo
+      opeationId: CreatePhoto
       responses:
         '200':
           description: photo response

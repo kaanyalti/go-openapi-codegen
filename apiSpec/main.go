@@ -9,7 +9,26 @@ import (
 	"text/template"
 
 	"github.com/getkin/kin-openapi/openapi3"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
+
+func GetExtension(i interface{}) string {
+	var v string
+	raw, ok := i.(json.RawMessage)
+	if !ok {
+		log.Fatalln("expected json.RawMessage, received something else")
+	}
+	json.Unmarshal(raw, &v)
+	return v
+}
+
+var funcMap template.FuncMap
+
+func init() {
+	funcMap = make(template.FuncMap, 0)
+	funcMap["GetExtension"] = GetExtension
+}
 
 func main() {
 	// Read the OpenAPI specification file into memory
@@ -31,49 +50,73 @@ func main() {
 	if err := document.Validate(loader.Context); err != nil {
 		log.Fatalln(err)
 	}
+	// tmpl := template.New("controller").Funcs(funcMap)
+	// // Create a new template by parsing a file
+	// parsedTmpl, err := tmpl.Parse("controller.tmpl")
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+	// fmt.Println(parsedTmpl)
 
-	// Create a new template by parsing a file
-	tmpl, err := template.ParseFiles("server.tmpl")
+	parsedTmpl, err := template.New("controller.tmpl").Funcs(funcMap).ParseFiles("controller.tmpl")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
+	groupedOperations := make(map[string][]*openapi3.Operation, 0)
 	for _, pathItem := range document.Paths {
+		operations := pathItem.Operations()
+		for key, operation := range operations {
+			fmt.Println("=========KEY")
+			fmt.Println(key)
+			fmt.Println("=========KEY")
+			tag := operation.Tags[0]
+			if _, ok := groupedOperations[tag]; !ok {
+				groupedOperations[tag] = []*openapi3.Operation{operation}
+			} else {
+				groupedOperations[tag] = append(groupedOperations[tag], operation)
+			}
+		}
+		fmt.Println("========================================")
+		fmt.Println(len(groupedOperations["photo"]))
+		fmt.Println(groupedOperations["photo"][0])
+		fmt.Println(groupedOperations["photo"][1])
 		fmt.Println("========================================\n")
-		fmt.Printf("%v\n", pathItem)
-		fmt.Println("%v\n", pathItem.ExtensionProps)
-		fmt.Println("========================================\n")
-		fmt.Printf("%v\n", string(pathItem.ExtensionProps.Extensions["x-arg-1"].(json.RawMessage)))
-		// 		v := reflect.ValueOf(*pathItem)
-		// 		values := make([]interface{}, v.NumField())
-
-		// 		for i := 0; i < v.NumField(); i++ {
-		// 			values[i] = v.Field(i).Interface()
-		// 		}
-		// fmt.Println(values)
-		// fmt.Println(values[0])
-		// fmt.Printf("%T\n", values[0])
 	}
-	// x := struct{Foo string; Bar int }{"foo", 2}
 
-	// v := reflect.ValueOf(x)
+	caser := cases.Title(language.Und)
 
-	// values := make([]interface{}, v.NumField())
+	for tag, op := range groupedOperations {
+		fmt.Println(tag)
+		fmt.Println(len(op))
 
-	// for i := 0; i < v.NumField(); i++ {
-	//     values[i] = v.Field(i).Interface()
-	// }
+		file, err := os.OpenFile(fmt.Sprintf("%sController.go", tag), os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		defer file.Close()
+		fmt.Println(caser.String(tag))
+		if err := parsedTmpl.Execute(file, struct {
+			Name       string
+			Operations []*openapi3.Operation
+		}{
+			Name:       caser.String(tag),
+			Operations: op,
+		}); err != nil {
+			log.Fatalln(err)
+		}
+	}
 
 	// fmt.Println(values)
 	// Open or Create the output file
-	file, err := os.OpenFile("server.go", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer file.Close()
+	// file, err := os.OpenFile("server.go", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+	// defer file.Close()
 
-	if err := tmpl.Execute(file, document); err != nil {
-		log.Fatalln(err)
-	}
+	// if err := tmpl.Execute(file, document); err != nil {
+	// 	log.Fatalln(err)
+	// }
 
 }
